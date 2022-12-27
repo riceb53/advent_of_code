@@ -1,4 +1,4 @@
-f = open('day7inputtest.txt','r')
+f = open('day7input.txt','r')
 lines = f.read().split("\n")
 
 
@@ -21,9 +21,15 @@ for line in lines:
         for folder_dict in folder_path:
             folder_dict['size'] += int(size)
 
-print(folder_path)
-print(previous_folders)
+all_folders = folder_path + previous_folders
 
+sum = 0
+for folder in all_folders:
+    if folder['size'] <= 100000:
+       sum +=  folder['size']
+
+print(all_folders)
+print(sum)
 
 
 # if you cd into something it gets added to folder_path
