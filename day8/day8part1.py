@@ -1,6 +1,6 @@
 import pdb
 
-f = open('day8inputtest.txt','r')
+f = open('day8input.txt','r')
 lines = f.read().split("\n")
 
 forest = []
@@ -40,91 +40,61 @@ for row_idx, row in enumerate(forest):
             # print("on the outside")
             count += 1
         else:
-            test_row_idx = row_idx
-            # go north.
+            test_row_idx = row_idx            
+            # north
             while (test_row_idx > 0) & tree_taller:
                 test_row_idx -= 1
                 test_tree = forest[test_row_idx][col_idx]
                 if tree <= test_tree:
                     tree_taller = False
-                # print(row_idx, col_idx, tree)
-                # print(test_row_idx, col_idx, forest[test_row_idx][col_idx])
-                # print("")
-            if tree_taller:
-                # print("tree taller")
-                # print(row_idx, col_idx, tree)
+            if tree_taller:                
                 count += 1          
-            else:
-                pass
-                # print("tree not taller")
-                # print(row_idx, col_idx, tree)
             
             
-            # print("starting southward test!")
-            # print(row_idx, col_idx, tree)
+            # south
             if not tree_taller:                
                 # this finds all the trees who have yet to be counted
                 # they aren't on the edge and they aren't visible from the north
-                # print("test")
-                print(row_idx, col_idx, tree)
-                # pdb.set_trace()
-
-                # should print out
-                # 1 3 1
-                    # test should be
-                        # 2 3 3                        
-                        # fail
-                # 2 1 5
-                    # test should be
-                        # 3 1 3
-                        # 4 1 5
-                        # fail
-                # 2 2 3
-                    # test should be
-                        # 3 2 5
-                        # fail                        
-                # 2 3 3
-                    # test should be 
-                        # 3 3 4
-                        # fail
-                # 3 1 3
-                    # test should be 
-                        # 4 1 5
-                        # fail
-                # 3 2 5
-                    # test should be
-                        # 4 2 5
-                        # pass
-                # 3 3 4
-                    # test should be
-                        # 4 3 9
-                        # fail
-
-
-
                 test_row_idx = row_idx
                 tree_taller = True
                 while (test_row_idx < height - 1) & tree_taller:                    
-                    print("test_row_idx")
-                    print(test_row_idx)
                     test_row_idx += 1
                     test_tree = forest[test_row_idx][col_idx]
                     if tree <= test_tree:
-                        tree_taller = False
-                    print(row_idx, col_idx, tree)
-                    print(test_row_idx, col_idx, forest[test_row_idx][col_idx])
-                    if (test_row_idx == 4) & (col_idx == 2):
-                        pdb.set_trace()
+                        tree_taller = False                                        
                 if tree_taller:
-                    print("tree taller")
-                    print(row_idx, col_idx, tree)
-                    count += 1          
-                else:                    
-                    print("tree not taller")
-                    print(row_idx, col_idx, tree)
+                    count += 1                          
+
+            # # west
+            if not tree_taller:                
+                test_col_idx = col_idx                
+                tree_taller = True
+                while (test_col_idx > 0) & tree_taller:
+                    test_col_idx -= 1
+                    test_tree = forest[row_idx][test_col_idx]
+                    if tree <= test_tree:
+                        tree_taller = False
+                if tree_taller:       
+                    print(row_idx, col_idx, tree)         
+                    count += 1
                 print("")
 
-                # go east
+            # east
+            if not tree_taller:                
+                test_col_idx = col_idx                
+                tree_taller = True
+                while (test_col_idx < width - 1) & tree_taller:
+                    test_col_idx += 1
+                    test_tree = forest[row_idx][test_col_idx]
+                    if tree <= test_tree:
+                        tree_taller = False
+                if tree_taller:       
+                    print(row_idx, col_idx, tree)         
+                    count += 1
+                print("")
+
+
+            # east
             # pdb.set_trace()            
             
 print(count)
@@ -143,3 +113,11 @@ print(count)
 # if you don't, it doesn't
 
 
+
+
+
+# 3 0 3 7 3     16 (outside)
+# 2 5 5 1 2     2 (north)
+# 6 5 3 3 2     1 (south)
+# 3 3 5 4 9     0 (west)
+# 3 5 3 9 0     1 (east)
