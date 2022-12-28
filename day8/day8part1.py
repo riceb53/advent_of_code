@@ -22,6 +22,8 @@ print(width)
 # 33549
 # 35390
 
+
+
 def visible(row, col, height, width):
     if (row_idx == 0) | (col_idx == 0) | (row_idx == height - 1) | (col_idx == width - 1):
         return True
